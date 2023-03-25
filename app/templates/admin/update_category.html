@@ -1,0 +1,21 @@
+{% extends 'admin_layout.html' %}
+
+{% block css %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin/setting_forms.css') }}">
+{% endblock css %}
+
+{% block main %}
+
+
+<h1 class="text-center mt-5">Update category</h1>
+<form action="" method="POST">
+    <div class="input-container">
+    <input type="text" class="input-field" name="category" required="required" value="{{ updatecat.category }}"> <br>
+</div>
+    <button type="submit" class="btn">Confirm</button>
+
+    <!-- <input type="submit" value="Add category" class="btn btn-info mt-2"> -->
+</form>
+
+{% endblock main %}

@@ -1,0 +1,71 @@
+
+  /* css variables */
+  :root {
+    --white: #fff;
+    --dark-gray: #ababab;
+    --light-gray: #808080;
+    --dark-bg: #222222;
+    --light-bg: #333333;
+    --yellow: #bac964;
+    --box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  }
+  html {
+    font-size: 62.5%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+  html::-webkit-scrollbar {
+    width: 1rem;
+  }
+  html::-webkit-scrollbar-track {
+    background: var(--white);
+  }
+  html::-webkit-scrollbar-thumb {
+    background: var(--light-bg);
+  }
+  body {
+    background-color: var(--dark-bg);
+  }
+  section {
+    padding: 5rem 9%;
+  }
+  .heading {
+    color: var(--white);
+    font-size: 4rem;
+    font-weight: 200;
+    text-align: center;
+    padding-bottom: 4rem;
+  }
+  .heading span {
+    font-weight: 700;
+  }
+
+/* about */
+.about {
+  margin-top: 80px;
+}
+
+.about .box-container .box .image {
+    height: 100%;
+    overflow: hidden;
+  }
+  .about .box-container .box .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .about .box-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap: 4rem;
+  }
+  .about .box-container .box p {
+    color: var(--dark-gray);
+    margin-bottom: 2rem;
+    font-size: 25px;
+    letter-spacing: 0.1rem;
+    line-height: 1.5;
+    text-transform: none;
+  }
+  /* about */

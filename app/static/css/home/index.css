@@ -1,0 +1,30 @@
+/* UTILITIES */
+
+* {
+
+margin: 0;
+
+padding: 0;
+
+box-sizing: border-box;
+
+}
+
+body {
+
+font-family: Helvetica, sans-serif;
+font-size: 23px;
+}
+
+a {
+
+text-decoration: none;
+
+}
+
+li {
+
+list-style: none;
+
+}
+

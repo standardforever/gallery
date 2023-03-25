@@ -1,0 +1,42 @@
+{% extends 'admin_layout.html' %}
+
+{% block css %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin/view.css') }}">
+
+{% endblock css %}
+
+{% block main %}
+
+<div class="container">
+
+
+    <form action="" method="POST" enctype="multipart/form-data">
+        <div class="input-container">
+            <h4>Edit comment</h4>
+            <input type="text" class="input-field"  name="text" value="{{ picture.text }}"
+            style="padding-bottom: 80px;" >
+          </div>
+          <h4 style="margin-top: 20px;">
+            Upload Picture
+          </h4>
+        <div class="formbold-form-wrapper">
+        <div class="mb-6 pt-4">
+          <div class="formbold-mb-5 formbold-file-input">
+            <div>
+                <img class="" src="{{url_for('static', filename='images/' + picture.image) }}" alt="" width="50%">
+            </div>
+            
+            <input type="file" name="file" id="file" />
+            <label for="file">
+            </label>
+          </div>
+        </div>
+    </div>
+          <button type="submit" class="btn">Upload</button>
+      </form>
+
+
+</div>
+
+{% endblock main %}

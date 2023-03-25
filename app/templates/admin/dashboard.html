@@ -1,0 +1,125 @@
+{% extends 'admin_layout.html' %}
+
+{% block main %}
+
+<div class="searchbar2">
+    <input type="text"
+        name=""
+        id=""
+        placeholder="Search">
+    <div class="searchbtn">
+        <img src="{{ url_for('static', filename='image/search.png') }}"
+            class="icn srchicn"
+            alt="search-button">
+    </div>
+</div>
+
+<div class="box-container">
+
+        <a href="{{ url_for('pictures')}}">
+    <div class="box box1">
+        
+        <div class="text">
+            <h2 class="topic-heading">60.5k</h2>
+            <h2 class="topic">Pictures</h2>
+        </div>
+
+        <img src="{{ url_for('static', filename='image/articles.png') }}"
+            alt="Pictures">
+    </div>
+</a>
+
+    <a href="{{ url_for('notification')}}">
+    <div class="box box2">
+        <div class="text">
+            <h2 class="topic-heading">150</h2>
+            <h2 class="topic">Notification</h2>
+        </div>
+        <img src="{{ url_for('static', filename='image/notification.png') }}"
+            alt="Notification">
+    </div>
+</a>
+
+<a href="{{ url_for('addcat')}}">
+    <div class="box box3">
+        <div class="text">
+            <h2 class="topic-heading">320</h2>
+            <h2 class="topic">Category</h2>
+        </div>
+
+        <img src="{{ url_for('static', filename='image/response.png') }}"
+            alt="Category">
+    </div>
+</a>
+
+<a href="{{ url_for('setting')}}">
+
+    <div class="box box4">
+        <div class="text">
+            <h2 class="topic-heading"></h2>
+            <h2 class="topic">Settings</h2>
+        </div>
+        <img src="{{ url_for('static', filename='image/setting.png') }}"
+         alt="Settings">
+    </div>
+</a>
+
+</div>
+
+<div class="report-container">
+    <div class="report-header">
+        <h1 class="recent-Articles">Recent Pictures</h1>
+        <a href="{{ url_for('pictures')}}" class="view"
+         style="padding-left: 9px;">View All</a>
+    </div>
+
+    <div class="report-body">
+        <div class="report-topic-heading">
+            <h3 class="t-op">Image</h3>
+            <h3 class="t-op">Created At</h3>
+            <h3 class="t-op">Updated At</h3>
+            <h3 class="t-op">View</h3>
+        </div>
+
+        <div class="items">
+            {% for picture in pictures.items %}
+            <div class="item1">
+                <h3 class="t-op-nextlvl" > <img src="{{ url_for('static', filename='images/' + picture.image)}}" alt="picture" width="90px" height="50px"> </h3>
+                <h3 class="t-op-nextlvl">{{ picture.created_at }}</h3>
+                <h3 class="t-op-nextlvl">{{ picture.created_at }}</h3>
+                <a href="{{ url_for('view', id=picture.id)}}" class="t-op-nextlvl label-tag"
+         style="padding-left: 9px;">View</a>
+            </div>
+            {% endfor %}
+
+
+            <!-- ========== Pagination ============= -->
+            <div class="col text-center">
+                {% if pictures.has_prev %}
+                <a href="{{ url_for('admin', page=pictures.prev_num) }}" class="btn btn-info btn-sm mt-3"> Prev </a>
+                {% endif %}
+            
+                {% for page_num in pictures.iter_pages() %}
+                {% if page_num %}
+                {% if pictures.page == page_num %}
+                <a href="{{ url_for('admin', page=page_num) }}" class="btn btn-info btn-sm mt-3"> {{ page_num }} </a>
+                {% else %}
+                <a href="{{ url_for('admin', page=page_num) }}" class="btn btn-outline-info btn-sm mt-3"> {{ page_num }} </a>
+                {% endif %}
+                {% else %}
+                ...
+                {% endif %}
+                {% endfor %}
+                {% if pictures.has_next %}
+                <a href="{{ url_for('admin', page=pictures.next_num) }}" class="btn btn-info btn-sm mt-3"> Next </a>
+                {% endif %}
+               </div>
+              </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock main %}

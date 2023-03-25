@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home/card.css') }}">
+
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home/navbar.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home/index.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home/footer.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+{% endblock css %}
+
+
+{% block content %}
+
+{% include 'navbar.html' %}
+
+
+<div class="row">
+
+  <div style="color:white; align-items: center; text-align: center;">
+    <h2 style="padding-top: 90px; padding-bottom: 20px;">Sammy's 'Gallery</h2>
+    <hr style="border-top: 5px solid white; margin-bottom: 20px;">
+  </div>
+
+  {% for picture in pictures.items %}
+  <a href="#" target="_blank">
+  <div class="column cards rgb">
+  <div class="card">
+  <img src="{{ url_for('static', filename='images/' + picture.image) }}" style="width:100%">
+  </div>
+  </div>
+  </a>
+    {% endfor %}  
+    
+</div>  
+
+<div class="col text-center">
+  {% if pictures.has_prev %}
+  <a href="{{ url_for('gallery', page=pictures.prev_num) }}" class="btn btn-info btn-sm mt-3"> Prev </a>
+  {% endif %}
+
+  {% for page_num in pictures.iter_pages() %}
+  {% if page_num %}
+  {% if pictures.page == page_num %}
+  <a href="{{ url_for('gallery', page=page_num) }}" class="btn btn-info btn-sm mt-3"> {{ page_num }} </a>
+  {% else %}
+  <a href="{{ url_for('gallery', page=page_num) }}" class="btn btn-outline-info btn-sm mt-3"> {{ page_num }} </a>
+  {% endif %}
+  {% else %}
+  ...
+  {% endif %}
+  {% endfor %}
+  {% if pictures.has_next %}
+  <a href="{{ url_for('gallery', page=pictures.next_num) }}" class="btn btn-info btn-sm mt-3"> Next </a>
+  {% endif %}
+ </div>
+{% include 'footer.html' %}
+
+{% endblock content %}

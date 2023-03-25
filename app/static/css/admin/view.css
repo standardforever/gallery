@@ -1,0 +1,23 @@
+h2 {
+    color: blue;
+}
+
+.img3 {
+    width: 90%;
+}
+
+.btn {
+    background-color: dodgerblue;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    width: 30%;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  
+  .btn:hover {
+    opacity: 1;
+  }
+  

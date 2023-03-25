@@ -1,0 +1,28 @@
+{% extends 'admin_layout.html' %}
+
+{% block css %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin/view.css') }}">
+
+{% endblock css %}
+
+{% block main %}
+
+<div class="container">
+    <div class="box-category">
+        <h2>Category</h2>
+        <h5 class="h5-category">{{ picture.category.category }}</h5>
+    </div>
+
+    <div>
+        <h2>Image</h2>
+        <img class="img3" src="{{url_for('static', filename='images/' + picture.image) }}" alt="">
+    </div>
+    
+    <div>
+        <h2>Comment</h2>
+        <p>{{ picture.text }}</p>
+    </div>
+</div>
+
+{% endblock main %}

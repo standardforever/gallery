@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home/navbar.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home/index.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home/footer.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home/about.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+{% endblock css %}
+
+
+
+{% block content %}
+
+{% include 'navbar.html' %}
+
+<!-- about section starts -->
+<section class="about" id="about">
+    <div class="box-container">
+      <div class="box">
+        <div class="image">
+          <img src="{{ url_for('static', filename='image/profile.png') }}" alt="" />
+        </div>
+      </div>
+      <div class="box">
+        <h1 class="heading">about <span>me</span></h1>
+        <p class="about-paragraph">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto quibusdam illum
+          repellat aperiam ratione quidem voluptatem quod, non modi sequi debitis quas tenetur atque
+          voluptas rem quo alias nesciunt. Similique?
+        </p>
+        <p class="about-paragraph">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda harum sed laboriosam modi
+          maiores numquam?
+        </p>
+      </div>
+    </div>
+  </section>
+  <!-- about section ends -->
+  
+
+  {% include 'footer.html' %}
+{% endblock content %}

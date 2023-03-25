@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block css %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home/contact.css') }}">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home/navbar.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home/index.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home/footer.css') }}">
+{% endblock css %}
+
+{% block content %}
+{% include 'navbar.html' %}
+<!-- contact section starts -->
+<section class="contact" id="contact">
+    <h1 class="heading">Get <span>in touch</span></h1>
+    <div class="col-container">
+      <div class="col" id="col-background">
+        <h2>Get in touch</h2>
+        <form action="" method="POST">
+        <input type="email" placeholder="your email" name="email" required="required"/>
+        <input type="text" placeholder="your phone" name="phone"/>
+        <textarea name="message" placeholder="write a message" id="" cols="30" rows="10" required="required"></textarea>
+        <button type="submit" class="btn">send message</a>
+      </form>
+      </div>
+      <div class="col">
+        <h2>My contact details</h2>
+        <i class="fas fa-envelope"> </i>
+        <p style="display: inline;"> email</p> <br>
+        <span class="contact-span">site@gmail.com</span>
+        <br />
+        <br />
+        <i class="fas fa-phone-alt"> </i>
+        <p style="display: inline;"> phone</p><br />
+        <span class="contact-span">+30 976 1234 3434</span>
+        <br />
+        <br />
+        
+        <i class="fas fa-map-marker-alt"> </i>
+        <p style="display: inline;"> address</p> <br />
+        <span class="contact-span">
+          san francisco, CA <br />
+          4th floor 8 lower <br />
+          san francisco street, m1 50f
+        </span>
+      </div>
+    </div>
+  </section>
+  <!-- contact section ends -->
+{% include 'footer.html' %}
+  {% endblock content %}

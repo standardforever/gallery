@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% block css %}
+
+    {% endblock css %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/admin/admin.css') }}">
+
+    <title>{{ title }}</title>
+  </head>
+  <body>
+
+	<!-- for header part -->
+	<header>
+
+		<div class="logosec">
+			<div class="logo">foreversammy</div>
+			<img src="{{ url_for('static', filename='image/response.png') }}"
+				class="icn menuicn"
+				id="menuicn"
+				alt="menu-icon">
+		</div>
+
+		<div class="searchbar">
+			<input type="text"
+				placeholder="Search">
+			<div class="searchbtn">
+			<img src="{{ url_for('static', filename='image/search.png') }}"
+					class="icn srchicn"
+					alt="search-icon">
+			</div>
+		</div>
+
+		<div class="message">
+			<div class="circle"></div>
+			<img src="{{ url_for('static', filename='image/notification.png') }}"
+				class="icn"
+				alt="">
+			<div class="dp">
+                <img src="{{ url_for('static', filename='image/profile.png') }}"
+					class="dpicn"
+					alt="dp">
+			</div>
+		</div>
+
+	</header>
+
+	<div class="main-container">
+		<div class="navcontainer">
+			<nav class="nav">
+				<div class="nav-upper-options">
+					<a href="{{ url_for('admin')}}">
+					<div class="nav-option option1">
+						<img src="{{ url_for('static', filename='image/dashboard.png') }}"
+							class="nav-img"
+							alt="dashboard">
+						<h3> Dashboard</h3>
+					</div>
+				</a>
+
+				<a href="{{ url_for('pictures')}}">
+					<div class="option2 nav-option">
+						<img src="{{ url_for('static', filename='image/articles.png') }}"
+							class="nav-img"
+							alt="Photos">
+						<h3> Photos</h3>
+					</div>
+				</a>
+
+				<a href="{{ url_for('notification')}}">
+					<div class="option2 nav-option">
+						<img src="{{ url_for('static', filename='image/notification.png') }}"
+							class="nav-img"
+							alt="articles">
+						<h3> Notification</h3>
+					</div>
+				</a>
+
+				<a href="{{ url_for('addcat')}}">
+					<div class="option2 nav-option">
+						<img src="{{ url_for('static', filename='image/response.png') }}"
+							class="nav-img"
+							alt="Category">
+						<h3> Category</h3>
+					</div>
+
+				</a>
+
+				<a href="{{ url_for('setting')}}">
+					<div class="nav-option option6">
+						<img src="{{ url_for('static', filename='image/setting.png') }}"
+							class="nav-img"
+							alt="settings">
+						<h3> Settings</h3>
+					</div>
+				</a>
+
+					<div class="nav-option logout">
+						<img src="{{ url_for('static', filename='image/logout.png') }}"
+							class="nav-img"
+							alt="logout">
+						<h3>Logout</h3>
+					</div>
+
+				</div>
+			</nav>
+		</div>
+		<div class="main">
+		{% block main %}
+
+		{% endblock main %}
+	</div>
+
+	<script src="{{ url_for('static', filename='javascript/admin.js') }}"></script>
+
+</body>
+</html>

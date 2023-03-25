@@ -1,0 +1,180 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background:url("../../image/background.jpg");
+  background-size: cover;
+}
+
+/* Float three columns side by side */
+.column {
+  float: left;
+  width: 45%;
+  padding: 40px 40px;
+  margin: 20px;
+  max-height: 470px;
+}
+
+/* Remove extra left and right margins, due to padding */
+.row {
+  margin: 0 -5px;
+  padding: 90px;
+ 
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+/* Responsive columns
+@media screen and (max-width: 870px) {
+  .column {
+    width: 50%;
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .row {
+    padding: 0;
+  }
+} */
+
+
+/* Responsive columns */
+@media screen and (max-width: 1200px) {
+  .column {
+    float: left;
+    width: 40%;
+    margin-bottom: 20px;
+    padding: 30px 30px;
+  }
+
+  .row {
+    padding: 50px 0 50px 80px;
+  }
+}
+
+
+
+/* Responsive columns */
+@media screen and (max-width: 1000px) {
+  .column {
+    display: block;
+    width: 80%;
+    margin-bottom: 20px;
+    padding: 30px 30px;
+  }
+
+  .row {
+    padding: 50px 0 50px 70px;
+  }
+}
+
+
+@media screen and (max-width: 700px) {
+  .column {
+    display: block;
+    width: 90%;
+    margin-bottom: 20px;
+    padding: 40px 40px;
+  }
+
+
+}
+
+
+@media screen and (max-width: 600px) {
+  .column {
+    width: 90%;
+    display: block;
+    margin-bottom: 20px;
+    padding: 30px 30px;
+  }
+  .row {
+    padding-left: 10px;
+  }
+  
+}
+
+
+@media screen and (max-width: 500px) {
+  .column {
+    width: 90%;
+    display: block;
+    margin-bottom: 20px;
+    padding: 20px 20px;
+  }
+  .row {
+    padding-left: 0px;
+  }
+  
+}
+
+
+
+/* Style the counter cards */
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 8px;
+  text-align: center;
+  background-color: #f1f1f1;
+  transition: 0.3s;
+  border-radius: 10px;
+  max-height: 450px;
+
+}
+
+.card:hover {
+  box-shadow: 0 4px 30px 0 rgba(0,0,0,0.4);
+}
+
+img {
+  border-radius: 10px 10px 10px 10px;
+  max-height: 380px;
+
+}
+
+
+/*   d sfhsdfhsdfds */
+
+ .cards {
+    border-radius: 18px;
+    background: #1d1d1d;
+    color:white;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.9);
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transform: perspective(1000px);
+  }
+  .rgb::after {
+    content:"";
+    background: linear-gradient(45deg,
+    #ff0000 0%, 
+    #ff9a00 10%,
+    #d0de21 20%,
+    #4fdc4a 30%, 
+    #3fdad8 40%,
+    #2fc9e2 50%, 
+    #1c7fee 60%, 
+    #5f15f2 70%, 
+    #ba0cf8 80%, 
+    #fb07d9 90%, 
+    #ff0000 100%  )
+    repeat 0% 0% / 300% 100%;
+    position: absolute;
+    inset: -3px;
+    border-radius: 16px;
+    filter: blur(8px);
+    transform: translateZ(-1px); 
+    animation: rgb 6s linear infinite;
+  }
+  @keyframes rgb {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+  } 

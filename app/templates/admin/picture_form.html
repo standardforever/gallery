@@ -1,0 +1,39 @@
+{% extends 'admin_layout.html' %}
+
+{% block css %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin/setting_forms.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+{% endblock css %}
+
+
+{% block main %}
+  {% include "_messages.html" %}
+    
+    
+      <form action="" method="POST" enctype="multipart/form-data">
+        <div class="input-container">
+            <textarea class="input-field"  name="text" placeholder="write a message" id="" cols="30" rows="10"></textarea>
+          </div>
+          <h2 style="margin-top: 20px;">
+            Upload Picture
+          </h2>
+        <div class="formbold-form-wrapper">
+        <div class="mb-6 pt-4">
+          <div class="formbold-mb-5 formbold-file-input">
+            <input type="file" name="file" id="file" required="required"/>
+            <label for="file">
+              <div>
+                <span class="formbold-drop-file"> Drop files here </span>
+                <span class="formbold-or"> Or </span>
+                <span class="formbold-browse"> Browse </span>
+              </div>
+            </label>
+          </div>
+        </div>
+    </div>
+          <button type="submit" class="btn">Upload</button>
+      </form>
+   
+{% endblock main %}
