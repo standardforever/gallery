@@ -2,3 +2,4 @@ my-env
 __pycache__
 __pycache__/*
 /app/static/images
+database.db/*
