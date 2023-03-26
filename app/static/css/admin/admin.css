@@ -293,6 +293,7 @@ font-size: 14px;
 font-weight: bold;
 border: none;
 cursor: pointer;
+padding-left: 15px;
 }
 
 .report-header > a {
@@ -463,6 +464,7 @@ padding: 7px 0;
         font-size: 10px;
         height: 27px;
         text-align: center;
+        padding-left: 0;
     }
     .report-header {
         height: 60px;
@@ -478,6 +480,12 @@ padding: 7px 0;
         font-size: 13px;
     }
 
+    .label-tag {
+        width: 70px;
+        border-radius: 5px;
+        padding: 7px 0;
+        }
+
     }
     
     @media screen and (max-width: 400px) {
@@ -489,6 +497,7 @@ padding: 7px 0;
         font-size: 10px;
         height: 27px;
         text-align: center;
+        padding-left: 0;
     }
     .report-header {
         height: 60px;
@@ -503,6 +512,13 @@ padding: 7px 0;
     .t-op-nextlvl {
         font-size: 11px;
     }
+
+    .label-tag {
+        width: 70px;
+        border-radius: 5px;
+        padding: 7px 0;
+        }
+        
     }
     
     /* @media screen and (max-width: 320px) {

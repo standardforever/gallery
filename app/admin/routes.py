@@ -4,13 +4,19 @@ from app import app, photos, db
 from app.admin.models import AddPicture, Category
 import secrets, os
 from app.utils.file_name_verify import allowed_file
+from app.home.models import Message
 
 @app.route('/admin')
 def admin():
     page = request.args.get('page', 1, type=int)
     pictures = AddPicture.get_all(page)
+    # pic_total = len(db.session.query(AddPicture).all())
+    # not_total = len(db.session.query(Message).all())
+    # pic_total = len(db.session.query(AddPicture).all())
+    # not_total = len(db.session.query(Message).all())
+
     # pictures = AddPicture.query.paginate(page=page, per_page=5)
-    return render_template("admin/dashboard.html", title="admin", pictures=pictures)
+    return render_template("admin/dashboard.html", title="admin", pictures=pictures )
 
 @app.route('/login')
 def login():
@@ -20,6 +26,26 @@ def login():
 @app.route('/setting')
 def setting():
     return render_template("admin/setting_forms.html", title="admin")
+
+
+@app.route('/notification')
+def notification():
+    page = request.args.get('page', 1, type=int)
+    messages = Message.get_all(page)
+    return render_template("admin/notification.html", title="admin", messages=messages)
+
+
+@app.route('/deletenotification', methods=["POST"])
+def deletenotification():
+    id = request.form.get('item_id')
+    Message.delete(id)
+    print(id)
+    return redirect(url_for('notification'))
+
+@app.route('/getnotification/<id>')
+def getnotification(id):
+    notification = Message.get(id)
+    return render_template('admin/view_notifica.html', notification=notification)
 
 @app.route('/pictures')
 def pictures():
@@ -70,7 +96,6 @@ def paginatepictures(id):
     return render_template("admin/pictures.html", title="admin", categories=categories)
 
 
-
 @app.route('/addpicture/<id>', methods=["POST", "GET"])
 def addpicture(id):
     categories = Category.get_all()
@@ -90,9 +115,6 @@ def addpicture(id):
         return redirect(url_for("pictures"))
     return render_template("admin/picture_form.html", title="admin", categories=categories)
 
-@app.route('/notification')
-def notification():
-    return render_template("admin/notification.html", title="admin")
 
 @app.route('/view/<id>')
 def view(id):
@@ -104,37 +126,54 @@ def editpicture(id):
     picture = AddPicture.get(id)
     if (picture == None):
         return redirect(url_for("pictures"))
+
     if request.method == "POST":
         text = request.form.get('text')
         file = request.files.get("file")
-        if (file):
+        if (file.filename == ''):
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            os.remove(os.path.join(app.config['UPLOADED_PHOTOS_DEST'] + '/' + picture.image))
+            filename = secure_filename(file.filename)
             image = photos.save(file, name=secrets.token_hex(10) + ".")
-            os.remove(os.path.join(app.config['UPLOADED_ITEMS_DEST'] + picture.image))
             picture.image = image
         if (text):
             picture.text = text
         if (text or file):
             db.session.commit()
+            return redirect(url_for("pictures"))
+        
 
-        return redirect(url_for("pictures"))
+
+    # if request.method == "POST":
+    #     text = request.form.get('text')
+    #     file = request.files.get("file")
+    #     if (file):
+    #         image = photos.save(file, name=secrets.token_hex(10) + ".")
+    #         os.remove(os.path.join(app.config['UPLOADED_PHOTOS_DEST'] + '/' + picture.image))
+    #         picture.image = image
+    #     if (text):
+    #         picture.text = text
+    #     if (text or file):
+    #         db.session.commit()
+
+    #     return redirect(url_for("pictures"))
     return render_template("admin/edit_picture.html", title="admin", picture=picture)
 
-@app.route('/deletepicture/<id>', methods=["POST"])
-def deletepicture(id):
+@app.route('/deletepicture', methods=["POST"])
+def deletepicture():
+    id = request.form.get('item_id')
     picture = AddPicture.get(id)
     if (picture == None):
         return redirect(url_for("pictures"))
 
-    os.remove(os.path.join(app.config['UPLOADED_ITEMS_DEST'] + picture.image))
+    os.remove(os.path.join(app.config['UPLOADED_PHOTOS_DEST'] + '/' + picture.image))
     picture.delete(id)
     return redirect(url_for("pictures"))
 
 
 
 """=============== Category ================"""
-
-
-
 
 @app.route('/addcat', methods=["POST", "GET"])
 def addcat():
@@ -165,12 +204,17 @@ def updatecategory(id):
 
 
 
-@app.route('/deletecategory/<id>', methods=['POST'])
-def deletecategory(id):
+@app.route('/deletecategory', methods=['POST'])
+def deletecategory():
     """Delete category from the database"""
+    id = request.form.get('item_id')
     category = Category.get(id)
+    print(id)
+    if (category is None):
+        return (redirect(url_for('addcat')))
 
     for cat in category.addpicture:
+        os.remove(os.path.join(app.config['UPLOADED_PHOTOS_DEST'] + '/' + cat.image))
         db.session.delete(cat)
     db.session.delete(category)
     db.session.commit()

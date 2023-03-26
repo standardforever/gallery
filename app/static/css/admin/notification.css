@@ -1,0 +1,29 @@
+#phone-tag {
+    width: 30%;
+}
+
+@media screen and (max-width: 750px) {
+    
+    #tag1,
+    #tag2,
+    #tag3 {
+        width: 460px;
+    } 
+    #tag5 {
+        width: 350px;
+        margin-top: 15px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+
+    #tag2,
+    #tag3 {
+        width: 350px;
+    }
+    #tag5 {
+        width: 300px;
+        margin-top: 15px;
+        }
+
+}
