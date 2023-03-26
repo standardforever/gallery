@@ -6,9 +6,10 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/home/navbar.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/home/index.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/home/footer.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/home/popup.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home/popup1.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/home/card.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin/home_popUp.css') }}">
 {% endblock css %}
 
 <!-- ======= Page Content ========== -->
@@ -24,32 +25,44 @@
       <hr style="border-top: 5px solid white; margin-bottom: 20px;">
     </div>
     {% for photo in category.addpicture %}
-    <a href="#" >
+    <a onclick="openModal('{{ photo.image }}')" >
     <div class="column cards rgb gallery">
     <div class="card ">
       <img src="{{ url_for('static', filename='images/' + photo.image) }}" style="width:100%">
     </div>
     </div>
-    </a>
+  </a>
     {% endfor %}
-    <div id="fullpage" onclick="this.style.display='none';"></div>
-                 
+    <div id="delete-modal" class="modal" onclick="closeModal()">
+          <div class="container">
+              <img src="" alt="" id="item-id">
+          </div>
+      </div>
+      </div>
+     </div>      
   </div>  
   {% endfor %}
 
   <script>
-    function getPics() {} //just for this demo
-const imgs = document.querySelectorAll('.gallery img');
-const fullPage = document.querySelector('#fullpage');
+    // Get the modal
+    var modal = document.getElementById("delete-modal");
+    
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+    
+    // When the user clicks the button, open the modal
+    function openModal(itemId) {
+        modal.style.display = "block";
+        console.log('../../images' +  itemId)
+        document.getElementById("item-id").src = '/static/images/' +  itemId;
+    }
+    
+    // When the user clicks on <span> (x), close the modal
+    function closeModal() {
+        modal.style.display = "none";
+    }
+  </script>
 
-imgs.forEach(img => {
-img.addEventListener('click', function() {
-fullPage.style.backgroundImage = 'url(' + img.src + ')';
-fullPage.style.display = 'block';
-});
-});
-
-</script>
 <!-- ======== Navbar ===========-->
 {% include 'navbar.html' %}
 
