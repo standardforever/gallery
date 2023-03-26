@@ -99,8 +99,8 @@
                 <a href="{{ url_for('admin', page=pictures.prev_num) }}" class="btn btn-info btn-sm mt-3"> Prev </a>
                 {% endif %}
             
-                {% for page_num in pictures.iter_pages() %}
-                {% if page_num %}
+                {% for page_num in pictures.iter_pages(left_edge=1, right_edge=2, left_current=1, right_current=2) %}
+                {% if page_num  %}
                 {% if pictures.page == page_num %}
                 <a href="{{ url_for('admin', page=page_num) }}" class="btn btn-info btn-sm mt-3"> {{ page_num }} </a>
                 {% else %}

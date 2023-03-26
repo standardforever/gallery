@@ -52,7 +52,7 @@
                 <a href="{{ url_for('paginatepictures', id=parent.id, page=child_pagination.prev_num) }}" class="btn btn-info btn-sm mt-3"> Prev </a>
                 {% endif %}
             
-                {% for page_num in child_pagination.iter_pages() %}
+                {% for page_num in child_pagination.iter_pages(left_edge=1, right_edge=2, left_current=2, right_current=3) %}
                 {% if page_num %}
                 {% if child_pagination.page == page_num %}
                 <a href="{{ url_for('paginatepictures',  id=parent.id, page=page_num) }}" class="btn btn-info btn-sm mt-3"> {{ page_num }} </a>

@@ -25,7 +25,7 @@ def setting():
 def pictures():
 
     page = request.args.get('page', 1, type=int)
-    per_page = 2
+    per_page = 5
 
     # Retrieve all parent objects and their child objects
     parents = Category.query.all()
@@ -45,8 +45,7 @@ def pictures():
 def paginatepictures(id):
 
     page = request.args.get('page', 1, type=int)
-    per_page = 5
-
+    per_page = 1
     # Retrieve all parent objects and their child objects
     parents = Category.query.all()
     target = Category.get(id)

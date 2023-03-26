@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/home/navbar.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/home/index.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/home/footer.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home/popup.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/home/card.css') }}">
 {% endblock css %}
@@ -23,17 +24,32 @@
       <hr style="border-top: 5px solid white; margin-bottom: 20px;">
     </div>
     {% for photo in category.addpicture %}
-    <a href="#" target="_blank">
-    <div class="column cards rgb">
-    <div class="card">
-    <img src="{{ url_for('static', filename='images/' + photo.image) }}" style="width:100%">
+    <a href="#" >
+    <div class="column cards rgb gallery">
+    <div class="card ">
+      <img src="{{ url_for('static', filename='images/' + photo.image) }}" style="width:100%">
     </div>
     </div>
     </a>
     {% endfor %}
+    <div id="fullpage" onclick="this.style.display='none';"></div>
                  
   </div>  
   {% endfor %}
+
+  <script>
+    function getPics() {} //just for this demo
+const imgs = document.querySelectorAll('.gallery img');
+const fullPage = document.querySelector('#fullpage');
+
+imgs.forEach(img => {
+img.addEventListener('click', function() {
+fullPage.style.backgroundImage = 'url(' + img.src + ')';
+fullPage.style.display = 'block';
+});
+});
+
+</script>
 <!-- ======== Navbar ===========-->
 {% include 'navbar.html' %}
 

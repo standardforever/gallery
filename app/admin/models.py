@@ -126,5 +126,3 @@ class Category(db.Model):
 
 with app.app_context():   # all database operations under with
     db.create_all()
-
-
