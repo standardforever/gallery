@@ -114,7 +114,7 @@ def paginatepictures(id):
     """ implementation of pagination for picture display
     """
     page = request.args.get('page', 1, type=int)
-    per_page = 1
+    per_page = 5
     # Retrieve all parent objects and their child objects
     parents = Category.query.all()
     target = Category.get(id)
