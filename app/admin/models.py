@@ -124,5 +124,17 @@ class Category(db.Model):
     def save(cls):
         db.session.commit()
 
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    password = db.Column(db.String(180), unique=False, nullable=False)
+    profile = db.Column(db.String(180), unique=False, nullable=False,
+    default='profile.jpg')
+
+    def __repr__(self):
+        return '<User %r>' % self.username
+
+
 with app.app_context():   # all database operations under with
     db.create_all()

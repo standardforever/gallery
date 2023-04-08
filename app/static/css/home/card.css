@@ -3,17 +3,18 @@
 }
 
 body {
-  background:url("../../image/background.jpg");
-  background-size: cover;
+  /* background:url("../../image/background.jpg");
+  background-size: cover; */
+  background-color: black;
 }
 
 /* Float three columns side by side */
 .column {
   float: left;
   width: 45%;
-  padding: 40px 40px;
+  padding: 50px 50px;
   margin: 20px;
-  max-height: 470px;
+  max-height: 500px;
 }
 
 /* Remove extra left and right margins, due to padding */
@@ -125,7 +126,7 @@ body {
   background-color: #f1f1f1;
   transition: 0.3s;
   border-radius: 10px;
-  max-height: 450px;
+  max-height: 480px;
 
 }
 
@@ -144,7 +145,8 @@ img {
 
  .cards {
     border-radius: 18px;
-    background: #1d1d1d;
+    /* background: #1d1d1d; */
+    background: black;
     color:white;
     box-shadow: 5px 5px 15px rgba(0,0,0,0.9);
     cursor: pointer;
@@ -168,7 +170,7 @@ img {
     repeat 0% 0% / 300% 100%;
     position: absolute;
     inset: -3px;
-    border-radius: 16px;
+    border-radius: 20px;
     filter: blur(8px);
     transform: translateZ(-1px); 
     animation: rgb 6s linear infinite;

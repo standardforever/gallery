@@ -1,35 +1,72 @@
-from flask import render_template, request, flash, redirect, url_for
+from flask import render_template, request, flash, redirect, url_for, session
 from werkzeug.utils import secure_filename
-from app import app, photos, db
-from app.admin.models import AddPicture, Category
+from app import app, photos, db, bcrypt
+from app.admin.models import AddPicture, Category, User
 import secrets, os
 from app.utils.file_name_verify import allowed_file
 from app.home.models import Message
 
 @app.route('/admin')
 def admin():
+    """ Admin home page
+    """
+    if 'email' not in session:
+        flash(f'Please login first', 'danger')
+        return redirect(url_for('login'))
     page = request.args.get('page', 1, type=int)
     pictures = AddPicture.get_all(page)
-    # pic_total = len(db.session.query(AddPicture).all())
-    # not_total = len(db.session.query(Message).all())
-    # pic_total = len(db.session.query(AddPicture).all())
-    # not_total = len(db.session.query(Message).all())
+    pic_total = len(db.session.query(AddPicture).all())
+    not_total = len(db.session.query(Message).all())
+    cat_total = len(db.session.query(Category).all())
 
-    # pictures = AddPicture.query.paginate(page=page, per_page=5)
-    return render_template("admin/dashboard.html", title="admin", pictures=pictures )
+    pictures = AddPicture.query.paginate(page=page, per_page=5)
+    return render_template("admin/dashboard.html", title="admin", pictures=pictures, pic_total=pic_total,
+                            not_total=not_total, cat_total=cat_total)
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
+    """ Login route
+    """
+    username = request.form.get('username')
+    password = request.form.get('password')
+    if request.method == 'POST':
+        user = User.query.filter_by(username = username).first()
+        if user and bcrypt.check_password_hash(user.password, password):
+            session['email'] = username
+            #flash(f'Welcome {form.email.data} You are logedin now', 'success')
+            return redirect(request.args.get('next') or url_for('admin'))
+        else:
+            flash('Wrong Password or email try again', 'danger')
     return render_template("admin/login.html", title="login")
 
 
+@app.route('/register', methods=["GET", "POST"])
+def register():
+    if request.method == 'POST':
+        # encrypt the form password
+        hash_password = bcrypt.generate_password_hash(request.form.get('password'))
+        user = User(username=request.form.get('username'), password=hash_password)
+        db.session.add(user)
+        db.session.commit()
+        #flash(f'Welcome {form.name.data} Thank you for registering', 'success')
+        return redirect(url_for('admin'))
+    return render_template('admin/register_admin.html',  title="Registeration page")
+
+@app.route('/logout', methods=['POST'])
+def logout():
+    pass
+
 @app.route('/setting')
 def setting():
+    """ Setting route for changing of password
+    """
     return render_template("admin/setting_forms.html", title="admin")
 
 
 @app.route('/notification')
 def notification():
+    """ Display available notification 
+    """
     page = request.args.get('page', 1, type=int)
     messages = Message.get_all(page)
     return render_template("admin/notification.html", title="admin", messages=messages)
@@ -37,6 +74,8 @@ def notification():
 
 @app.route('/deletenotification', methods=["POST"])
 def deletenotification():
+    """ Delete notification By id
+    """
     id = request.form.get('item_id')
     Message.delete(id)
     print(id)
@@ -44,12 +83,15 @@ def deletenotification():
 
 @app.route('/getnotification/<id>')
 def getnotification(id):
+    """ Get notification by id
+    """
     notification = Message.get(id)
     return render_template('admin/view_notifica.html', notification=notification)
 
 @app.route('/pictures')
 def pictures():
-
+    """ Display pictures in database using pagination to admin dashboard
+    """
     page = request.args.get('page', 1, type=int)
     per_page = 5
 
@@ -69,7 +111,8 @@ def pictures():
 
 @app.route('/paginatepictures/<id>/')
 def paginatepictures(id):
-
+    """ implementation of pagination for picture display
+    """
     page = request.args.get('page', 1, type=int)
     per_page = 1
     # Retrieve all parent objects and their child objects
@@ -98,6 +141,8 @@ def paginatepictures(id):
 
 @app.route('/addpicture/<id>', methods=["POST", "GET"])
 def addpicture(id):
+    """ Add a picuter to the database
+    """
     categories = Category.get_all()
     for category in categories:
         category.addpicture.reverse()
@@ -118,11 +163,15 @@ def addpicture(id):
 
 @app.route('/view/<id>')
 def view(id):
+    """ View picuters in full mode in admin dashboard
+    """
     picture = AddPicture.get(id)
     return render_template("admin/view.html", title="admin", picture=picture)
 
 @app.route('/editpicture/<id>', methods= ["POST", "GET"])
 def editpicture(id):
+    """ Edit picutre base on id in admin dashboard
+    """
     picture = AddPicture.get(id)
     if (picture == None):
         return redirect(url_for("pictures"))
@@ -142,26 +191,12 @@ def editpicture(id):
         if (text or file):
             db.session.commit()
             return redirect(url_for("pictures"))
-        
-
-
-    # if request.method == "POST":
-    #     text = request.form.get('text')
-    #     file = request.files.get("file")
-    #     if (file):
-    #         image = photos.save(file, name=secrets.token_hex(10) + ".")
-    #         os.remove(os.path.join(app.config['UPLOADED_PHOTOS_DEST'] + '/' + picture.image))
-    #         picture.image = image
-    #     if (text):
-    #         picture.text = text
-    #     if (text or file):
-    #         db.session.commit()
-
-    #     return redirect(url_for("pictures"))
     return render_template("admin/edit_picture.html", title="admin", picture=picture)
 
 @app.route('/deletepicture', methods=["POST"])
 def deletepicture():
+    """ Delete picture by id
+    """
     id = request.form.get('item_id')
     picture = AddPicture.get(id)
     if (picture == None):
@@ -219,3 +254,4 @@ def deletecategory():
     db.session.delete(category)
     db.session.commit()
     return redirect(url_for('addcat'))
+

@@ -24,7 +24,8 @@
     background: var(--light-bg);
   }
   body {
-    background-color: var(--dark-bg);
+    /* background-color: var(--dark-bg); */
+    background-color: black;
   }
   section {
     padding: 5rem 9%;

@@ -14,7 +14,8 @@ footer{
 
 
 .footer-distributed{
-	background-color: #2c292f;
+	/* background-color: #2c292f; */
+	background-color: black;
 	box-sizing: border-box;
 	width: 100%;
 	text-align: left;
