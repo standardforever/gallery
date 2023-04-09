@@ -8,7 +8,7 @@ from app.home.models import Message
 @app.route('/')
 def home():
     page = request.args.get('page', 1, type=int)
-    per_page = 5
+    per_page = 6
 
     # categories = Category.get_all()
     # for category in categories:
@@ -31,7 +31,7 @@ def paginate_home_pictures(id):
     """ implementation of pagination for picture display
     """
     page = request.args.get('page', 1, type=int)
-    per_page = 5
+    per_page = 6
     # Retrieve all parent objects and their child objects
     parents = Category.query.all()
     target = Category.get(id)

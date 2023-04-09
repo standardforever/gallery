@@ -34,7 +34,7 @@ class Message(db.Model):
     def get_all(cls, page):
         """ Get a record by ID
         """
-        picture = db.session.query(cls).order_by(cls.created_at.desc()).paginate(page=page, per_page=5)
+        picture = db.session.query(cls).order_by(cls.created_at.desc()).paginate(page=page, per_page=6)
         if (picture is None):
             return (None)
         return (picture) 

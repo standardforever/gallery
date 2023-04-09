@@ -93,7 +93,7 @@ def pictures():
     """ Display pictures in database using pagination to admin dashboard
     """
     page = request.args.get('page', 1, type=int)
-    per_page = 5
+    per_page = 6
 
     # Retrieve all parent objects and their child objects
     parents = Category.query.all()
@@ -114,7 +114,7 @@ def paginatepictures(id):
     """ implementation of pagination for picture display
     """
     page = request.args.get('page', 1, type=int)
-    per_page = 5
+    per_page = 6
     # Retrieve all parent objects and their child objects
     parents = Category.query.all()
     target = Category.get(id)
