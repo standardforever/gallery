@@ -60,17 +60,7 @@ body {
 
 
 
-/* Responsive columns */
-@media screen and (max-width: 1000px) {
-  .column {
-    display: block;
-    width: 80%;
-    margin-bottom: 20px;
-    padding: 30px 30px;
-  }
 
- 
-}
 
 
 @media screen and (max-width: 950px) {

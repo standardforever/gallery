@@ -17,9 +17,8 @@
 {% block content %}
 
 {% for parent, child_pagination in categories.items() %}
+<div>
 <div class="row">
-
-   
     <div style="color:white; align-items: center; text-align: center;">
       <h2 style="padding-top: 90px; padding-bottom: 20px;">{{ parent.category }}</h2>
 
@@ -38,9 +37,7 @@
               <img src="" alt="" id="item-id">
           </div>
       </div>
-      </div>
-     </div>      
-  </div>
+    </div>
 
   <div style="text-align: center; color: white; ">
     {% if child_pagination.has_prev %}
@@ -62,7 +59,7 @@
     <a href="{{ url_for('paginate_home_pictures', id=parent.id, page=child_pagination.next_num) }}" class="btn btn-info btn-sm mt-3"> Next </a>
     {% endif %}
    </div>
-  
+  </div>
   {% endfor %}
 
   <script>
