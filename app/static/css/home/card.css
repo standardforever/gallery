@@ -1,6 +1,4 @@
-* {
-  box-sizing: border-box;
-}
+
 
 body {
   /* background:url("../../image/background.jpg");
@@ -71,21 +69,21 @@ body {
     padding: 30px 30px;
   }
 
-  .row {
-    padding: 50px 0 50px 70px;
-  }
+ 
 }
 
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 950px) {
   .column {
-    display: block;
     width: 90%;
+    display: block;
     margin-bottom: 20px;
-    padding: 40px 40px;
+    padding: 30px 30px;
   }
-
-
+  .row {
+    padding-left: 10px;
+  }
+  
 }
 
 
