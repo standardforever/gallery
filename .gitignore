@@ -3,4 +3,5 @@ __pycache__
 __pycache__/*
 /app/static/images
 database.db/*
-project.db
+project.db/*
+instances
