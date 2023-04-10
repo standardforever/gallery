@@ -22,7 +22,7 @@
 
   <div style="padding-top: 90px; color:white; align-items: center; text-align: center;">
     <h1>
-      GALLERY
+      picture_cat
     </h1>
     <h3 style="padding-bottom: 20px;"> <span style="color: rgb(201, 38, 38);">Discover</span> and <span style="color: rgb(201, 38, 38);">Capture</span> <span style="color: rgb(201, 38, 38);">Your</span> <br>
       Moment with The Best Artwork</h3>
@@ -45,22 +45,22 @@
 
 <div style="text-align: center; color: white; ">
   {% if pictures.has_prev %}
-  <a href="{{ url_for('gallery', page=pictures.prev_num) }}" class="btn btn-info btn-sm mt-3"> Prev </a>
+  <a href="{{ url_for('picture_cat', id=id, page=pictures.prev_num) }}" class="btn btn-info btn-sm mt-3"> Prev </a>
   {% endif %}
 
   {% for page_num in pictures.iter_pages() %}
   {% if page_num %}
   {% if pictures.page == page_num %}
-  <a href="{{ url_for('gallery', page=page_num) }}" class="btn btn-info btn-sm mt-3"> {{ page_num }} </a>
+  <a href="{{ url_for('picture_cat', id= id, page=page_num) }}" class="btn btn-info btn-sm mt-3"> {{ page_num }} </a>
   {% else %}
-  <a href="{{ url_for('gallery', page=page_num) }}" class="btn btn-outline-info btn-sm mt-3"> {{ page_num }} </a>
+  <a href="{{ url_for('picture_cat', id=id,  page=page_num) }}" class="btn btn-outline-info btn-sm mt-3"> {{ page_num }} </a>
   {% endif %}
   {% else %}
   ...
   {% endif %}
   {% endfor %}
   {% if pictures.has_next %}
-  <a href="{{ url_for('gallery', page=pictures.next_num) }}" class="btn btn-info btn-sm mt-3"> Next </a>
+  <a href="{{ url_for('picture_cat', id=id,  page=pictures.next_num) }}" class="btn btn-info btn-sm mt-3"> Next </a>
   {% endif %}
  </div>
 {% include 'footer.html' %}

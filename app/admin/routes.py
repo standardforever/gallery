@@ -42,6 +42,9 @@ def login():
 
 @app.route('/register', methods=["GET", "POST"])
 def register():
+    # if 'email' not in session:
+    #     flash(f'Please login first', 'danger')
+    #     return redirect(url_for('login'))
     if request.method == 'POST':
         # encrypt the form password
         hash_password = bcrypt.generate_password_hash(request.form.get('password'))
@@ -52,14 +55,37 @@ def register():
         return redirect(url_for('admin'))
     return render_template('admin/register_admin.html',  title="Registeration page")
 
-@app.route('/logout', methods=['POST'])
+@app.route('/logout', methods=['GET'])
 def logout():
-    pass
+    del session['email']
+    return redirect(url_for('home'))
 
-@app.route('/setting')
+@app.route('/setting', methods=['POST', 'GET'])
 def setting():
     """ Setting route for changing of password
     """
+    if 'email' not in session:
+        flash(f'Please login first', 'danger')
+        return redirect(url_for('login'))
+
+    old_password = request.form.get('old-password')
+    new_password = request.form.get('new-password')
+    re_password = request.form.get('password')
+
+    if (new_password != re_password):
+        flash(f'New password and re-type password not match')
+        return (redirect(url_for('setting')))
+
+
+    if (request.method == 'POST'):
+        user = User.query.filter_by(username = session['email']).first()
+        if user and bcrypt.check_password_hash(user.password, old_password):
+            user.password = new_password
+            return (redirect(url_for('admin')))
+        else:
+            flash('Wrong password')
+            return (redirect(url_for('setting')))
+
     return render_template("admin/setting_forms.html", title="admin")
 
 
@@ -67,6 +93,9 @@ def setting():
 def notification():
     """ Display available notification 
     """
+    if 'email' not in session:
+        flash(f'Please login first', 'danger')
+        return redirect(url_for('login'))
     page = request.args.get('page', 1, type=int)
     messages = Message.get_all(page)
     return render_template("admin/notification.html", title="admin", messages=messages)
@@ -76,6 +105,9 @@ def notification():
 def deletenotification():
     """ Delete notification By id
     """
+    if 'email' not in session:
+        flash(f'Please login first', 'danger')
+        return redirect(url_for('login'))
     id = request.form.get('item_id')
     Message.delete(id)
     print(id)
@@ -85,6 +117,9 @@ def deletenotification():
 def getnotification(id):
     """ Get notification by id
     """
+    if 'email' not in session:
+        flash(f'Please login first', 'danger')
+        return redirect(url_for('login'))
     notification = Message.get(id)
     return render_template('admin/view_notifica.html', notification=notification)
 
@@ -92,6 +127,9 @@ def getnotification(id):
 def pictures():
     """ Display pictures in database using pagination to admin dashboard
     """
+    if 'email' not in session:
+        flash(f'Please login first', 'danger')
+        return redirect(url_for('login'))
     page = request.args.get('page', 1, type=int)
     per_page = 6
 
@@ -113,6 +151,9 @@ def pictures():
 def paginatepictures(id):
     """ implementation of pagination for picture display
     """
+    if 'email' not in session:
+        flash(f'Please login first', 'danger')
+        return redirect(url_for('login'))
     page = request.args.get('page', 1, type=int)
     per_page = 6
     # Retrieve all parent objects and their child objects
@@ -143,6 +184,9 @@ def paginatepictures(id):
 def addpicture(id):
     """ Add a picuter to the database
     """
+    if 'email' not in session:
+        flash(f'Please login first', 'danger')
+        return redirect(url_for('login'))
     categories = Category.get_all()
     for category in categories:
         category.addpicture.reverse()
@@ -165,6 +209,9 @@ def addpicture(id):
 def view(id):
     """ View picuters in full mode in admin dashboard
     """
+    if 'email' not in session:
+        flash(f'Please login first', 'danger')
+        return redirect(url_for('login'))
     picture = AddPicture.get(id)
     return render_template("admin/view.html", title="admin", picture=picture)
 
@@ -172,6 +219,10 @@ def view(id):
 def editpicture(id):
     """ Edit picutre base on id in admin dashboard
     """
+    if 'email' not in session:
+        flash(f'Please login first', 'danger')
+        return redirect(url_for('login'))
+    
     picture = AddPicture.get(id)
     if (picture == None):
         return redirect(url_for("pictures"))
@@ -197,6 +248,9 @@ def editpicture(id):
 def deletepicture():
     """ Delete picture by id
     """
+    if 'email' not in session:
+        flash(f'Please login first', 'danger')
+        return redirect(url_for('login'))
     id = request.form.get('item_id')
     picture = AddPicture.get(id)
     if (picture == None):
@@ -213,6 +267,9 @@ def deletepicture():
 @app.route('/addcat', methods=["POST", "GET"])
 def addcat():
     """Add New category to the database"""
+    if 'email' not in session:
+        flash(f'Please login first', 'danger')
+        return redirect(url_for('login'))
     category = Category.get_all()
     if request.method == 'POST':
         category = request.form.get('category')
@@ -226,7 +283,9 @@ def addcat():
 @app.route('/updatecategory/<id>', methods=["POST", "GET"])
 def updatecategory(id):
     """Update category in the database"""
-
+    if 'email' not in session:
+        flash(f'Please login first', 'danger')
+        return redirect(url_for('login'))
     updatecat = Category.query.get_or_404(id)
     category = request.form.get('category')
 
@@ -242,6 +301,9 @@ def updatecategory(id):
 @app.route('/deletecategory', methods=['POST'])
 def deletecategory():
     """Delete category from the database"""
+    if 'email' not in session:
+        flash(f'Please login first', 'danger')
+        return redirect(url_for('login'))
     id = request.form.get('item_id')
     category = Category.get(id)
     print(id)

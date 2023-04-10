@@ -3,6 +3,53 @@
 <!-- ========== Adding CSS  link style ============ -->
 {% block css %}
 
+<style>
+   .hero {
+  
+   height: 100vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   
+}
+.hero::before {
+   content: "";
+   position: absolute;
+   margin-top: 200px;
+   width: 100%;
+   height: 100%;
+   background: url(images/forest.jpg);
+   background-repeat: no-repeat;
+   background-size: cover;
+   background-position: center center;
+   /* filter: brightness(60%); */
+   background-image: url("../../static/image/hero_image.jpg");
+}
+
+.pushable {
+    background: hsl(340deg 100% 32%);
+    border-radius: 12px;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline-offset: 4px;
+  }
+  .front {
+    display: block;
+    padding: 12px 42px;
+    border-radius: 12px;
+    font-size: 1.25rem;
+    background: hsl(345deg 100% 47%);
+    color: white;
+    transform: translateY(-6px);
+  }
+
+  .pushable:active .front {
+    transform: translateY(-2px);
+  }
+ 
+  </style>
+
 <link rel="stylesheet" href="{{ url_for('static', filename='css/home/navbar.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/home/index.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/home/footer.css') }}">
@@ -16,13 +63,53 @@
 
 {% block content %}
 
-{% for parent, child_pagination in categories.items() %}
-<div>
-<div class="row">
-    <div style="color:white; align-items: center; text-align: center;">
-      <h2 style="padding-top: 90px; padding-bottom: 20px;">{{ parent.category }}</h2>
 
+
+<section class="hero">
+
+  <div class="hero-content">
+  
+     <h1 class="hero-title">
+          Discover the World
+     </h1>
+       
+     <h2 class="hero-subtitle">
+          We offer the best adventure holidays and tailor-made trips!
+     </h2>
+       
+     <button type="button" class="hero-button" onclick="location.href='tours.html'">
+          Search for tours &raquo;
+     </button>
+  
+  </div>
+
+</section>
+
+
+<div style="padding-top: 200px; color:white; align-items: center; text-align: center;">
+  <h1>
+    Art Collection
+  </h1>
+  <h3> <span style="color: rgb(201, 38, 38);">Discover</span> and <span style="color: rgb(201, 38, 38);">Capture</span> <span style="color: rgb(201, 38, 38);">Your</span> <br>
+    Moment with The Best Art Collections</h3>
+  <!-- <hr style="border-top: 5px solid white; margin-bottom: 20px;"> -->
+</div>
+
+
+{% for parent, child_pagination in categories.items() %}
+
+<div class="row">
+
+  <div style="align-items: center; text-align: center;">
+    <button style="display: block;" class="pushable">
+      <a href="{{url_for('picture_cat', id=parent.id)}}">
+      <span class="front">
+        {{ parent.category }}
+      </span>
+    </a>
+    </button>
     </div>
+
     {% for child in child_pagination.items %}
     <a onclick="openModal('{{ child.image }}')" >
     <div class="column cards rgb gallery">
@@ -39,27 +126,6 @@
       </div>
     </div>
 
-  <div style="text-align: center; color: white; ">
-    {% if child_pagination.has_prev %}
-    <a href="{{ url_for('paginate_home_pictures', id=parent.id, page=child_pagination.prev_num) }}" class="btn btn-info btn-sm mt-3"> Prev </a>
-    {% endif %}
-
-    {% for page_num in child_pagination.iter_pages(left_edge=1, right_edge=2, left_current=2, right_current=3) %}
-    {% if page_num %}
-    {% if child_pagination.page == page_num %}
-    <a href="{{ url_for('paginate_home_pictures',  id=parent.id, page=page_num) }}" class="btn btn-info btn-sm mt-3"> {{ page_num }} </a>
-    {% else %}
-    <a href="{{ url_for('paginate_home_pictures', id=parent.id, page=page_num) }}" class="btn btn-outline-info btn-sm mt-3"> {{ page_num }} </a>
-    {% endif %}
-    {% else %}
-    ...
-    {% endif %}
-    {% endfor %}
-    {% if child_pagination.has_next %}
-    <a href="{{ url_for('paginate_home_pictures', id=parent.id, page=child_pagination.next_num) }}" class="btn btn-info btn-sm mt-3"> Next </a>
-    {% endif %}
-   </div>
-  </div>
   {% endfor %}
 
   <script>
